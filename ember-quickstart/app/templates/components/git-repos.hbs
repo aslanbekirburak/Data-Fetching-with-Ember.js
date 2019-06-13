@@ -1,5 +1,6 @@
-{{!-- Feel free to remove this! --}}
-<label for="username">UserName</label>
-<input id="facebook" type="text"/>
-
+{{input value=name}}
 <p><button {{action "getRepos"}}>✓</button></p>
+{{#each results as |result|}}
+  {{result.full_name}}
+  <br/>
+{{/each}}

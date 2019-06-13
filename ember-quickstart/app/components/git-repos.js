@@ -2,21 +2,22 @@ import Component from '@ember/component';
 
 export default Component.extend({
     actions: {
+      results: [],
+      name: null,
         getRepos() {
-           /* const api = this.get('host');
-            const url = `${api}/auth/coinbase`;
-            const headers = {
-              'Origin': api
-            };
-            // , {data: params}
-            return this.ajax(url, 'GET');*/
-            
-            window.console.log("controllers")
-            return fetch('https://github.com/users/bekir16/repos',{ method: 'GET',mode: 'no-cors' })
-            .then(res => Promise.resolve(res.json()))
-            .then(res => window.console.log(res))
-            .catch(err=>window.console.log(err)) 
+          let name = this.get('name')
+          let url = 'https://api.github.com/users/' + name + '/repos';
+          return fetch(url, {
+            method: "GET",
+            headers: {
+              'Content-Type': 'application/json',
             }
+          }).then(function(response) {
+            return response.json();
+          }).then(results => {
+            this.set('results',results)
+          });
+        
         }        
-      
+    }
 });
